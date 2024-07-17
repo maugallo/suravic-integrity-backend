@@ -1,0 +1,10 @@
+package edu.usal.suravicIntegrity.license;
+
+public enum LicenseType {
+    LICENCIA_MEDICA,
+    LICENCIA_POR_RAZONES_FAMILIARES,
+    LICENCIA_POR_MATRIMONIO,
+    LICENCIA_POR_ESTUDIO,
+    LICENCIA_POR_VACACIONES,
+    LICENCIA_ESPECIAL
+}
