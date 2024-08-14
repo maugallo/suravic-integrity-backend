@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class ErrorHandler {
 
-    public static List<String> loadErrorMessages(BindingResult bindingResult){
+    public List<String> loadErrorMessages(BindingResult bindingResult){
         List<String> errorList = new ArrayList<String>();
 
         bindingResult.getFieldErrors().forEach((error) -> {
@@ -19,7 +19,7 @@ public class ErrorHandler {
         return errorList;
     }
 
-    public static void printErrorMessages(List<String> errorList) {
+    public void printErrorMessages(List<String> errorList) {
         errorList.forEach((error) -> {
             System.out.println(error);
         });

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@PreAuthorize("hasRole('DUENO')")
 public class UserController {
 
     private final UserService userService;
@@ -40,7 +42,7 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<String> createUser(@Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            List<String> errorList = ErrorHandler.loadErrorMessages(bindingResult);
+            List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
@@ -51,7 +53,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            List<String> errorList = ErrorHandler.loadErrorMessages(bindingResult);
+            List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }

@@ -2,6 +2,7 @@ package edu.usal.suravicIntegrity.user;
 
 import edu.usal.suravicIntegrity.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@PreAuthorize("hasRole('DUENO')")
 public class UserService {
 
     private final UserRepository userRepository;
@@ -35,6 +37,10 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
 
         return userMapper.toDTO(user);
+    }
+
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 
     // CREATE METHOD:
