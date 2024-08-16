@@ -47,7 +47,7 @@ public class UserService {
     public String addUser(RequestUserDTO requestUserDTO) {
         User user = userMapper.toEntity(requestUserDTO);
         user.setPassword(passwordEncoder.encode(requestUserDTO.getPassword()));
-        user.setEnabled(true);
+        user.setIsEnabled(true);
         userRepository.save(user);
 
         return "Usuario creado correctamente";
@@ -72,10 +72,10 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
 
-        user.setEnabled(!user.getEnabled());
+        user.setIsEnabled(!user.getIsEnabled());
         userRepository.save(user);
 
-        return (user.getEnabled() ? "Usuario recuperado correctamente" : "Usuario eliminado correctamente");
+        return (user.getIsEnabled() ? "Usuario recuperado correctamente" : "Usuario eliminado correctamente");
     }
 
 }
