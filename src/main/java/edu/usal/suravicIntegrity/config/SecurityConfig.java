@@ -20,7 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable()) // Disables CSRF protection, common in stateless REST APIs.
                 .httpBasic(withDefaults()) // Enables HTTP Basic Authentication with default settings.

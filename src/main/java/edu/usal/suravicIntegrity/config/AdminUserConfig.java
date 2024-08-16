@@ -2,8 +2,8 @@ package edu.usal.suravicIntegrity.config;
 
 import edu.usal.suravicIntegrity.user.RequestUserDTO;
 import edu.usal.suravicIntegrity.user.UserService;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +16,19 @@ import java.util.Collections;
 @Configuration
 public class AdminUserConfig {
 
+    @Value("${admin.username}")
+    private String username;
+
+    @Value("${admin.password}")
+    private String password;
+
+    private final String role = "DUENO";
+
     private final UserService userService;
-    private final Dotenv dotenv;
 
     @Autowired
-    public AdminUserConfig(UserService userService, Dotenv dotenv) {
+    public AdminUserConfig(UserService userService) {
         this.userService = userService;
-        this.dotenv = dotenv;
     }
 
     @Bean
@@ -35,12 +41,7 @@ public class AdminUserConfig {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("system", "system", Collections.singleton(new SimpleGrantedAuthority("ROLE_DUENO"))));
 
             try {
-                String username = dotenv.get("ADMIN_USERNAME");
-
                 if (!userService.existsByUsername(username)){
-                    String password = dotenv.get("ADMIN_PASSWORD");
-                    String role = "DUENO";
-
                     RequestUserDTO requestUserDTO = new RequestUserDTO();
                     requestUserDTO.setUsername(username);
                     requestUserDTO.setPassword(password);
