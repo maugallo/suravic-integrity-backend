@@ -1,17 +1,27 @@
 package edu.usal.suravicIntegrity.authentication;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthController {
 
-    @GetMapping("api/test")
-    public String home(Principal principal) {
-        return "Hello " + principal.getName();
+    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
+
+    private final TokenService tokenService;
+
+    public AuthController(TokenService tokenService) { this.tokenService = tokenService; }
+
+    @GetMapping("/login")
+    public String login(Authentication authentication) {
+        LOG.debug("Token solicitado para usuario: {}", authentication.getName());
+        String token = tokenService.generateToken(authentication);
+        LOG.debug("Token generado: {}", token);
+        return token;
     }
 
 }

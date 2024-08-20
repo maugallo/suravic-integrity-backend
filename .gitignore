@@ -34,3 +34,7 @@ build/
 
 # Ignore environment variables file
 .env
+
+# Ignore private and public keys
+private.pem
+public.pem

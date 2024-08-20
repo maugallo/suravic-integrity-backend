@@ -2,7 +2,7 @@ package edu.usal.suravicIntegrity.user;
 
 import edu.usal.suravicIntegrity.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@PreAuthorize("hasRole('DUENO')")
 public class UserService {
 
     private final UserRepository userRepository;
@@ -28,7 +27,7 @@ public class UserService {
         List<User> users = userRepository.findAll();
 
         return users.stream()
-                .map(user -> userMapper.toDTO(user))
+                .map(userMapper::toDTO)
                 .collect(Collectors.toList());
     }
 

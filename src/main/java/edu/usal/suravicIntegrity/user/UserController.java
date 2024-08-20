@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@PreAuthorize("hasRole('DUENO')")
 public class UserController {
 
     private final UserService userService;
@@ -28,17 +27,20 @@ public class UserController {
     }
 
     //GET METHODS:
+    @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
     @GetMapping()
     public ResponseEntity<List<ResponseUserDTO>> getUsers(){
-        return new ResponseEntity<List<ResponseUserDTO>>(userService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
     @GetMapping("/{id}")
     public ResponseEntity<ResponseUserDTO> getUserById(@PathVariable Long id){
-        return new ResponseEntity<ResponseUserDTO>(userService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     //CREATE METHOD:
+    @PreAuthorize("hasRole('DUENO')")
     @PostMapping()
     public ResponseEntity<String> createUser(@Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -50,6 +52,7 @@ public class UserController {
     }
 
     //UPDATE METHOD:
+    @PreAuthorize("hasRole('DUENO')")
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -61,6 +64,7 @@ public class UserController {
     }
 
     //DELETE & RECOVER METHOD:
+    @PreAuthorize("hasRole('DUENO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> toggleIsEnabled(@PathVariable Long id){
         return new ResponseEntity<>(userService.toggleIsEnabled(id), HttpStatus.OK);
