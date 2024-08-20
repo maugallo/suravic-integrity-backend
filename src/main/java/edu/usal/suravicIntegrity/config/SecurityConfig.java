@@ -71,9 +71,6 @@ public class SecurityConfig {
 
     @Bean
     public JwtEncoder jwtEncoder(){
-        if (rsaKeys.rsaPublicKey() == null || rsaKeys.rsaPrivateKey() == null) {
-            throw new IllegalArgumentException("RSA public/private key must not be null");
-        }
         JWK jwk = new RSAKey.Builder(rsaKeys.rsaPublicKey()).privateKey(rsaKeys.rsaPrivateKey()).build();
         JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwkSource);
