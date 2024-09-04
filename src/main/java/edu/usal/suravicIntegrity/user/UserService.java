@@ -23,8 +23,8 @@ public class UserService {
     }
 
     // GET METHODS:
-    public List<ResponseUserDTO> findAll() {
-        List<User> users = userRepository.findAll();
+    public List<ResponseUserDTO> findUsers(Boolean isEnabled) {
+        List<User> users = userRepository.findByIsEnabled(isEnabled);
 
         return users.stream()
                 .map(userMapper::toDTO)

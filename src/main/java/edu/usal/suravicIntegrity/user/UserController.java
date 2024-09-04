@@ -29,8 +29,8 @@ public class UserController {
     //GET METHODS:
     @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
     @GetMapping()
-    public ResponseEntity<List<ResponseUserDTO>> getUsers(){
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<ResponseUserDTO>> getUsers(@RequestParam(required = true) Boolean isEnabled){
+        return new ResponseEntity<>(userService.findUsers(isEnabled), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")

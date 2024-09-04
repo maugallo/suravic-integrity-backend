@@ -1,14 +1,17 @@
 package edu.usal.suravicIntegrity.security;
 
+import edu.usal.suravicIntegrity.user.UserService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +21,12 @@ public class TokenService {
     private final JwtEncoder jwtEncoder;
     private final JwtDecoder jwtDecoder;
 
-    public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder) {
+    private final UserDetailsServiceImpl userDetailsService;
+
+    public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder, UserDetailsServiceImpl userDetailsService) {
         this.jwtEncoder = jwtEncoder;
         this.jwtDecoder = jwtDecoder;
+        this.userDetailsService = userDetailsService;
     }
 
     public String generateToken(Authentication authentication) {
@@ -40,6 +46,18 @@ public class TokenService {
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
+    public String generateRefreshToken(Authentication authentication) {
+        Instant now = Instant.now();
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                .issuer("self")
+                .issuedAt(now)
+                .expiresAt(now.plus(7, ChronoUnit.DAYS))
+                .subject(authentication.getName())
+                .build();
+
+        return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
     public Authentication decodeToken(String token) {
         Jwt jwt = jwtDecoder.decode(token);
 
@@ -48,6 +66,14 @@ public class TokenService {
                 .collect(Collectors.toList());
 
         return new UsernamePasswordAuthenticationToken(jwt.getSubject(), null, authorities);
+    }
+
+    public Authentication decodeRefreshToken(String token) {
+        String username = jwtDecoder.decode(token).getSubject();
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        return new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
     }
 
 }
