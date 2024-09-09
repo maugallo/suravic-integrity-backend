@@ -1,6 +1,7 @@
 package edu.usal.suravicIntegrity.user;
 
 import edu.usal.suravicIntegrity.validation.EnumValidator;
+import edu.usal.suravicIntegrity.validation.UniqueValidator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class RequestUserDTO {
 
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
     @Size(max = 40, message = "El nombre de usuario no puede tener más de 40 caracteres")
+    @UniqueValidator(entityClass = User.class, fieldName = "username", message = "El nombre de usuario ingresado ya existe")
     private String username;
 
     @NotBlank(message = "La contraseña no puede estar vacía")

@@ -1,7 +1,6 @@
 package edu.usal.suravicIntegrity.user;
 
 import edu.usal.suravicIntegrity.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper = UserMapper.INSTANCE;
 
-    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -36,10 +34,6 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
 
         return userMapper.toDTO(user);
-    }
-
-    public Boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
     }
 
     // CREATE METHOD:

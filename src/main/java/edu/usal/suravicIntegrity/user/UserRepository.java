@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    List<User> findByIsEnabled(boolean isEnabled);
+    List<User> findByIsEnabled(Boolean isEnabled);
     Optional<User> findByUsername(String username);
-
-    Boolean existsByUsername(String username);
 
 }

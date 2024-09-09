@@ -1,23 +1,16 @@
 package edu.usal.suravicIntegrity.authentication;
 
 import edu.usal.suravicIntegrity.security.TokenService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
 
     private final TokenService tokenService;
 
@@ -43,9 +36,6 @@ public class AuthController {
 
     @GetMapping("/refresh")
     public ResponseEntity<Void> refreshToken(@CookieValue("refreshToken") String refreshToken) {
-        System.out.println("IMPRIMIENDO REFRESH TOKEN!!");
-        System.out.println(refreshToken);
-
         Authentication authentication = tokenService.decodeRefreshToken(refreshToken);
 
         String newToken = tokenService.generateToken(authentication);

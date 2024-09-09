@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "users")
     private Set<Notification> notifications = new HashSet<>();
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column

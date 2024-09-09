@@ -4,7 +4,6 @@ import edu.usal.suravicIntegrity.ErrorHandler;
 
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,13 +19,12 @@ public class UserController {
     private final UserService userService;
     private final ErrorHandler errorHandler;
 
-    @Autowired
     public UserController(UserService userService, ErrorHandler errorHandler) {
         this.userService = userService;
         this.errorHandler = errorHandler;
     }
 
-    //GET METHODS:
+    // GET METHODS:
     @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
     @GetMapping()
     public ResponseEntity<List<ResponseUserDTO>> getUsers(@RequestParam(required = true) Boolean isEnabled){
@@ -39,7 +37,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
-    //CREATE METHOD:
+    // CREATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PostMapping()
     public ResponseEntity<String> createUser(@Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
@@ -51,7 +49,7 @@ public class UserController {
         return new ResponseEntity<>(userService.addUser(requestUserDTO), HttpStatus.CREATED);
     }
 
-    //UPDATE METHOD:
+    // UPDATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody RequestUserDTO requestUserDTO, BindingResult bindingResult){
@@ -60,10 +58,10 @@ public class UserController {
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(userService.updateUser(id, requestUserDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.updateUser(id, requestUserDTO), HttpStatus.OK);
     }
 
-    //DELETE & RECOVER METHOD:
+    // DELETE & RECOVER METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> toggleIsEnabled(@PathVariable Long id){
