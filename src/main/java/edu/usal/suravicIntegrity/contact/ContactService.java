@@ -6,11 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContactService {
 
-    private final ContactMapper contactMapper;
     private final ContactRepository contactRepository;
+    private final ContactMapper contactMapper = ContactMapper.INSTANCE;
 
-    public ContactService(ContactMapper contactMapper, ContactRepository contactRepository) {
-        this.contactMapper = contactMapper;
+    public ContactService(ContactRepository contactRepository) {
         this.contactRepository = contactRepository;
     }
 

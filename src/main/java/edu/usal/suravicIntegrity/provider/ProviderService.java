@@ -14,17 +14,15 @@ import java.util.stream.Collectors;
 @Service
 public class ProviderService {
 
-    private final ProviderRepository providerRepository;
-    private final ProviderMapper providerMapper;
-
     private final ContactService contactService;
     private final PercentagesService percentagesService;
+    private final ProviderRepository providerRepository;
+    private final ProviderMapper providerMapper = ProviderMapper.INSTANCE;
 
-    public ProviderService(ProviderRepository providerRepository, ProviderMapper providerMapper, ContactService contactService, PercentagesService percentagesService) {
-        this.providerRepository = providerRepository;
-        this.providerMapper = providerMapper;
+    public ProviderService(ContactService contactService, PercentagesService percentagesService, ProviderRepository providerRepository) {
         this.contactService = contactService;
         this.percentagesService = percentagesService;
+        this.providerRepository = providerRepository;
     }
 
     // GET METHODS:

@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 public class PercentagesService {
 
     private final PercentagesRepository percentagesRepository;
-    private final PercentagesMapper percentagesMapper;
+    private final PercentagesMapper percentagesMapper = PercentagesMapper.INSTANCE;
 
-    public PercentagesService(PercentagesRepository percentagesRepository, PercentagesMapper percentagesMapper) {
+    public PercentagesService(PercentagesRepository percentagesRepository) {
         this.percentagesRepository = percentagesRepository;
-        this.percentagesMapper = percentagesMapper;
     }
 
     // CREATE METHOD:
