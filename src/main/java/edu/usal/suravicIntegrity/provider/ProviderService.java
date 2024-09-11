@@ -45,6 +45,7 @@ public class ProviderService {
     @Transactional
     public String addProvider(RequestProviderDTO requestProviderDTO) {
         Provider provider = providerMapper.toEntity(requestProviderDTO);
+        provider.setIsEnabled(true);
         provider.setContact(contactService.addContact(requestProviderDTO.getContact()));
         provider.setPercentages(percentagesService.addPercentages(requestProviderDTO.getPercentages()));
 

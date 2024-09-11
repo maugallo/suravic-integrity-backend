@@ -1,5 +1,8 @@
 package edu.usal.suravicIntegrity.provider;
 
+import edu.usal.suravicIntegrity.contact.ContactMapper;
+import edu.usal.suravicIntegrity.percentages.PercentagesMapper;
+import edu.usal.suravicIntegrity.sector.SectorMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,10 +14,13 @@ public interface ProviderMapper {
     default ResponseProviderDTO toDTO(Provider provider) {
         ResponseProviderDTO dto = new ResponseProviderDTO();
         dto.setId(provider.getId());
-        dto.setSector(provider.getSector());
-        dto.setContact(provider.getContact());
-        dto.setPercentages(provider.getPercentages());
+
+        dto.setSector(SectorMapper.INSTANCE.toDTO(provider.getSector()));
+        dto.setContact(ContactMapper.INSTANCE.toDTO(provider.getContact()));
+        dto.setPercentages(PercentagesMapper.INSTANCE.toDTO(provider.getPercentages()));
+
         dto.setVatCondition(provider.getVatCondition());
+        dto.setCompanyName(provider.getCompanyName());
         dto.setFirstName(provider.getFirstName());
         dto.setLastName(provider.getLastName());
         dto.setCuit(provider.getCuit());

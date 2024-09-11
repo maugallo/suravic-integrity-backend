@@ -35,6 +35,7 @@ public class SectorService {
     // CREATE METHOD:
     public String addSector(RequestSectorDTO requestSectorDTO) {
         Sector sector = sectorMapper.toEntity(requestSectorDTO);
+        sector.setIsEnabled(true);
         sectorRepository.save(sector);
 
         return "Rubro creado correctamente";
