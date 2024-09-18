@@ -8,8 +8,8 @@ public interface SectorMapper {
 
     SectorMapper INSTANCE = Mappers.getMapper(SectorMapper.class);
 
-    default ResponseSectorDTO toDTO(Sector sector) {
-        ResponseSectorDTO dto = new ResponseSectorDTO();
+    default SectorResponseDTO toDTO(Sector sector) {
+        SectorResponseDTO dto = new SectorResponseDTO();
         dto.setId(sector.getId());
         dto.setName(sector.getName());
         dto.setIsEnabled(sector.getIsEnabled());
@@ -17,8 +17,16 @@ public interface SectorMapper {
         return dto;
     }
 
-    default Sector toEntity(RequestSectorDTO dto) {
+    default Sector toEntityFromRequest(SectorRequestDTO dto) {
         Sector sector = new Sector();
+        sector.setName(dto.getName());
+
+        return sector;
+    }
+
+    default Sector toEntityFromResponse(SectorResponseDTO dto) {
+        Sector sector = new Sector();
+        sector.setId(dto.getId());
         sector.setName(dto.getName());
 
         return sector;

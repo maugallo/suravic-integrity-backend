@@ -1,8 +1,9 @@
 package edu.usal.suravicIntegrity.provider;
 
-import edu.usal.suravicIntegrity.contact.RequestContactDTO;
-import edu.usal.suravicIntegrity.percentages.RequestPercentagesDTO;
+import edu.usal.suravicIntegrity.contact.ContactRequestDTO;
+import edu.usal.suravicIntegrity.percentages.PercentagesRequestDTO;
 import edu.usal.suravicIntegrity.sector.Sector;
+import edu.usal.suravicIntegrity.sector.SectorResponseDTO;
 import edu.usal.suravicIntegrity.validation.EnumValidator;
 import edu.usal.suravicIntegrity.validation.UniqueValidator;
 import jakarta.validation.constraints.NotBlank;
@@ -13,13 +14,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestProviderDTO {
+public class ProviderRequestDTO {
 
-    private Sector sector;
+    private SectorResponseDTO sector;
 
-    private RequestContactDTO contact;
+    private ContactRequestDTO contact;
 
-    private RequestPercentagesDTO percentages;
+    private PercentagesRequestDTO percentages;
 
     @EnumValidator(enumClass = VatCondition.class)
     private String vatCondition;

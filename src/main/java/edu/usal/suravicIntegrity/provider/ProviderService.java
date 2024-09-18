@@ -5,6 +5,7 @@ import edu.usal.suravicIntegrity.contact.ContactService;
 import edu.usal.suravicIntegrity.exceptions.ResourceNotFoundException;
 import edu.usal.suravicIntegrity.percentages.Percentages;
 import edu.usal.suravicIntegrity.percentages.PercentagesService;
+import edu.usal.suravicIntegrity.sector.SectorMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class ProviderService {
     }
 
     // GET METHODS:
-    public List<ResponseProviderDTO> findProviders(Boolean isEnabled) {
+    public List<ProviderResponseDTO> findProviders(Boolean isEnabled) {
         List<Provider> providers = providerRepository.findByIsEnabled(isEnabled);
 
         return providers.stream()
@@ -34,7 +35,7 @@ public class ProviderService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseProviderDTO findProviderById(Long id) {
+    public ProviderResponseDTO findProviderById(Long id) {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el proveedor solicitado con id " + id));
 
@@ -43,11 +44,11 @@ public class ProviderService {
 
     // CREATE METHOD:
     @Transactional
-    public String addProvider(RequestProviderDTO requestProviderDTO) {
-        Provider provider = providerMapper.toEntity(requestProviderDTO);
+    public String addProvider(ProviderRequestDTO providerRequestDTO) {
+        Provider provider = providerMapper.toEntityFromRequest(providerRequestDTO);
         provider.setIsEnabled(true);
-        provider.setContact(contactService.addContact(requestProviderDTO.getContact()));
-        provider.setPercentages(percentagesService.addPercentages(requestProviderDTO.getPercentages()));
+        provider.setContact(contactService.addContact(providerRequestDTO.getContact()));
+        provider.setPercentages(percentagesService.addPercentages(providerRequestDTO.getPercentages()));
 
         providerRepository.save(provider);
 
@@ -56,21 +57,21 @@ public class ProviderService {
 
     // PUT METHOD:
     @Transactional
-    public String updateProvider(Long id, RequestProviderDTO requestProviderDTO) {
+    public String updateProvider(Long id, ProviderRequestDTO providerRequestDTO) {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el proveedor solicitado con id " + id));
 
-        Contact updateContact = contactService.updateContact(provider.getContact().getId(), requestProviderDTO.getContact());
-        Percentages updatePercentages = percentagesService.updatePercentages(provider.getPercentages().getId(), requestProviderDTO.getPercentages());
+        Contact updateContact = contactService.updateContact(provider.getContact().getId(), providerRequestDTO.getContact());
+        Percentages updatePercentages = percentagesService.updatePercentages(provider.getPercentages().getId(), providerRequestDTO.getPercentages());
 
-        provider.setSector(requestProviderDTO.getSector());
+        provider.setSector(SectorMapper.INSTANCE.toEntityFromResponse(providerRequestDTO.getSector()));
         provider.setContact(updateContact);
         provider.setPercentages(updatePercentages);
-        provider.setVatCondition(requestProviderDTO.getVatCondition());
-        provider.setCompanyName(requestProviderDTO.getCompanyName());
-        provider.setFirstName(requestProviderDTO.getFirstName());
-        provider.setLastName(requestProviderDTO.getLastName());
-        provider.setCuit(requestProviderDTO.getCuit());
+        provider.setVatCondition(providerRequestDTO.getVatCondition());
+        provider.setCompanyName(providerRequestDTO.getCompanyName());
+        provider.setFirstName(providerRequestDTO.getFirstName());
+        provider.setLastName(providerRequestDTO.getLastName());
+        provider.setCuit(providerRequestDTO.getCuit());
         providerRepository.save(provider);
 
         return "Proveedor actualizado correctamente";

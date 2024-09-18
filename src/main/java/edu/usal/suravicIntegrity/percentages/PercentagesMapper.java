@@ -8,8 +8,8 @@ public interface PercentagesMapper {
 
     PercentagesMapper INSTANCE = Mappers.getMapper(PercentagesMapper.class);
 
-    default ResponsePercentagesDTO toDTO(Percentages percentages) {
-        ResponsePercentagesDTO dto = new ResponsePercentagesDTO();
+    default PercentagesResponseDTO toDTO(Percentages percentages) {
+        PercentagesResponseDTO dto = new PercentagesResponseDTO();
         dto.setId(percentages.getId());
         dto.setVatPercentage(percentages.getVatPercentage());
         dto.setProfitPercentage(percentages.getProfitPercentage());
@@ -17,7 +17,7 @@ public interface PercentagesMapper {
         return dto;
     }
 
-    default Percentages toEntity(RequestPercentagesDTO dto) {
+    default Percentages toEntity(PercentagesRequestDTO dto) {
         Percentages percentages = new Percentages();
         percentages.setVatPercentage(dto.getVatPercentage());
         percentages.setProfitPercentage(dto.getProfitPercentage());

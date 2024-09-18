@@ -17,7 +17,7 @@ public class SectorService {
     }
 
     // GET METHODS:
-    public List<ResponseSectorDTO> findAll(Boolean isEnabled) {
+    public List<SectorResponseDTO> findAll(Boolean isEnabled) {
         List<Sector> sectors = sectorRepository.findByIsEnabled(isEnabled);
 
         return sectors.stream()
@@ -25,7 +25,7 @@ public class SectorService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseSectorDTO findById(Long id) {
+    public SectorResponseDTO findById(Long id) {
         Sector sector = sectorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el rubro solicitado con id " + id));
 
@@ -33,8 +33,8 @@ public class SectorService {
     }
 
     // CREATE METHOD:
-    public String addSector(RequestSectorDTO requestSectorDTO) {
-        Sector sector = sectorMapper.toEntity(requestSectorDTO);
+    public String addSector(SectorRequestDTO sectorRequestDTO) {
+        Sector sector = sectorMapper.toEntityFromRequest(sectorRequestDTO);
         sector.setIsEnabled(true);
         sectorRepository.save(sector);
 
@@ -42,11 +42,11 @@ public class SectorService {
     }
 
     // PUT METHOD:
-    public String updateSector(Long id, RequestSectorDTO requestSectorDTO) {
+    public String updateSector(Long id, SectorRequestDTO sectorRequestDTO) {
         Sector sector = sectorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el rubro solicitado con id " + id));
 
-        sector.setName(requestSectorDTO.getName());
+        sector.setName(sectorRequestDTO.getName());
 
         sectorRepository.save(sector);
 

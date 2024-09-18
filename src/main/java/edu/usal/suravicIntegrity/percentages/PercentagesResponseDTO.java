@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResponsePercentagesDTO {
+public class PercentagesResponseDTO {
 
     private Long id;
 

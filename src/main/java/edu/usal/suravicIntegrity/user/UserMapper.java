@@ -8,8 +8,8 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    default ResponseUserDTO toDTO(User user) {
-        ResponseUserDTO dto = new ResponseUserDTO();
+    default UserResponseDTO toDTO(User user) {
+        UserResponseDTO dto = new UserResponseDTO();
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setRole(user.getRole());
@@ -18,11 +18,11 @@ public interface UserMapper {
         return dto;
     }
 
-    default User toEntity(RequestUserDTO requestUserDTO) {
+    default User toEntity(UserRequestDTO userRequestDTO) {
         User user = new User();
-        user.setUsername(requestUserDTO.getUsername());
-        user.setPassword(requestUserDTO.getPassword());
-        user.setRole(requestUserDTO.getRole());
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(userRequestDTO.getPassword());
+        user.setRole(userRequestDTO.getRole());
 
         return user;
     }

@@ -1,11 +1,11 @@
-package edu.usal.suravicIntegrity.sector;
+package edu.usal.suravicIntegrity.category;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ResponseSectorDTO {
+public class CategoryResponseDTO {
 
     private Long id;
 

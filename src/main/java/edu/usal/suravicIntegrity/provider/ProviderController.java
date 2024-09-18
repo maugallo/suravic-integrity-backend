@@ -25,38 +25,38 @@ public class ProviderController {
     // GET METHODS:
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping()
-    public ResponseEntity<List<ResponseProviderDTO>> getProviders(@RequestParam(required = true) Boolean isEnabled) {
+    public ResponseEntity<List<ProviderResponseDTO>> getProviders(@RequestParam(required = true) Boolean isEnabled) {
         return new ResponseEntity<>(providerService.findProviders(isEnabled), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseProviderDTO> getProvider(@PathVariable Long id) {
+    public ResponseEntity<ProviderResponseDTO> getProvider(@PathVariable Long id) {
         return new ResponseEntity<>(providerService.findProviderById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PostMapping()
-    public ResponseEntity<String> createProvider(@Valid @RequestBody RequestProviderDTO requestProviderDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> createProvider(@Valid @RequestBody ProviderRequestDTO providerRequestDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(providerService.addProvider(requestProviderDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(providerService.addProvider(providerRequestDTO), HttpStatus.CREATED);
     }
 
     // UPDATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProvider(@PathVariable Long id, @RequestBody RequestProviderDTO requestProviderDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> updateProvider(@PathVariable Long id, @RequestBody ProviderRequestDTO providerRequestDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(providerService.updateProvider(id, requestProviderDTO), HttpStatus.OK);
+        return new ResponseEntity<>(providerService.updateProvider(id, providerRequestDTO), HttpStatus.OK);
     }
 
     // DELETE & RECOVER METHOD:

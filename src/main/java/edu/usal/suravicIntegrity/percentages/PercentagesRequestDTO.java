@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestPercentagesDTO {
+public class PercentagesRequestDTO {
 
     @NotBlank
     @Min(value = 0)

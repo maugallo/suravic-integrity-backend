@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestSectorDTO {
+public class SectorRequestDTO {
 
     @NotBlank
     @Size(min = 1, max = 100)

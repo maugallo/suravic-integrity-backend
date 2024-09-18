@@ -25,38 +25,38 @@ public class SectorController {
     // GET METHODS:
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping()
-    public ResponseEntity<List<ResponseSectorDTO>> getSectors(@RequestParam(required = true) Boolean isEnabled){
+    public ResponseEntity<List<SectorResponseDTO>> getSectors(@RequestParam(required = true) Boolean isEnabled){
         return new ResponseEntity<>(sectorService.findAll(isEnabled), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSectorDTO> getSectorsById(@PathVariable Long id){
+    public ResponseEntity<SectorResponseDTO> getSectorById(@PathVariable Long id){
         return new ResponseEntity<>(sectorService.findById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PostMapping()
-    public ResponseEntity<String> createSector(@Valid @RequestBody RequestSectorDTO requestSectorDTO, BindingResult bindingResult){
+    public ResponseEntity<String> createSector(@Valid @RequestBody SectorRequestDTO sectorRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(sectorService.addSector(requestSectorDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(sectorService.addSector(sectorRequestDTO), HttpStatus.CREATED);
     }
 
     // UPDATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateSector(@PathVariable Long id, @Valid @RequestBody RequestSectorDTO requestSectorDTO, BindingResult bindingResult){
+    public ResponseEntity<String> updateSector(@PathVariable Long id, @Valid @RequestBody SectorRequestDTO sectorRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(sectorService.updateSector(id, requestSectorDTO), HttpStatus.OK);
+        return new ResponseEntity<>(sectorService.updateSector(id, sectorRequestDTO), HttpStatus.OK);
     }
 
     // DELETE & RECOVER METHOD:

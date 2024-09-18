@@ -14,18 +14,18 @@ public class PercentagesService {
     }
 
     // CREATE METHOD:
-    public Percentages addPercentages(RequestPercentagesDTO requestPercentagesDTO) {
-        Percentages percentages = percentagesMapper.toEntity(requestPercentagesDTO);
+    public Percentages addPercentages(PercentagesRequestDTO percentagesRequestDTO) {
+        Percentages percentages = percentagesMapper.toEntity(percentagesRequestDTO);
         return percentagesRepository.save(percentages);
     }
 
     // PUT METHOD:
-    public Percentages updatePercentages(Long id, RequestPercentagesDTO requestPercentagesDTO) {
+    public Percentages updatePercentages(Long id, PercentagesRequestDTO percentagesRequestDTO) {
         Percentages percentages = percentagesRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudieron encontrar los porcentajes solicitados con id " + id));
 
-        percentages.setVatPercentage(requestPercentagesDTO.getVatPercentage());
-        percentages.setProfitPercentage(requestPercentagesDTO.getProfitPercentage());
+        percentages.setVatPercentage(percentagesRequestDTO.getVatPercentage());
+        percentages.setProfitPercentage(percentagesRequestDTO.getProfitPercentage());
 
         return percentagesRepository.save(percentages);
     }

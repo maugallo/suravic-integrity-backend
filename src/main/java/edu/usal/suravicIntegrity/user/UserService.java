@@ -21,7 +21,7 @@ public class UserService {
     }
 
     // GET METHODS:
-    public List<ResponseUserDTO> findUsers(Boolean isEnabled) {
+    public List<UserResponseDTO> findUsers(Boolean isEnabled) {
         List<User> users = userRepository.findByIsEnabled(isEnabled);
 
         return users.stream()
@@ -29,7 +29,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseUserDTO findById(Long id) {
+    public UserResponseDTO findById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
 
@@ -37,9 +37,9 @@ public class UserService {
     }
 
     // CREATE METHOD:
-    public String addUser(RequestUserDTO requestUserDTO) {
-        User user = userMapper.toEntity(requestUserDTO);
-        user.setPassword(passwordEncoder.encode(requestUserDTO.getPassword()));
+    public String addUser(UserRequestDTO userRequestDTO) {
+        User user = userMapper.toEntity(userRequestDTO);
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
         user.setIsEnabled(true);
         userRepository.save(user);
 
@@ -47,13 +47,13 @@ public class UserService {
     }
 
     // PUT METHOD:
-    public String updateUser(Long id, RequestUserDTO requestUserDTO) {
+    public String updateUser(Long id, UserRequestDTO userRequestDTO) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
 
-        user.setUsername(requestUserDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(requestUserDTO.getPassword()));
-        user.setRole(requestUserDTO.getRole());
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
+        user.setRole(userRequestDTO.getRole());
 
         userRepository.save(user);
 

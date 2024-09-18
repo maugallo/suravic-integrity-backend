@@ -14,18 +14,18 @@ public class ContactService {
     }
 
     // CREATE METHOD:
-    public Contact addContact(RequestContactDTO requestContactDTO) {
-        Contact contact = contactMapper.toEntity(requestContactDTO);
+    public Contact addContact(ContactRequestDTO contactRequestDTO) {
+        Contact contact = contactMapper.toEntity(contactRequestDTO);
         return contactRepository.save(contact);
     }
 
     // PUT METHOD:
-    public Contact updateContact(Long id, RequestContactDTO requestContactDTO) {
+    public Contact updateContact(Long id, ContactRequestDTO contactRequestDTO) {
         Contact contact = contactRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el contacto solicitado con id " + id));
 
-        contact.setTelephone(requestContactDTO.getTelephone());
-        contact.setEmail(requestContactDTO.getEmail());
+        contact.setTelephone(contactRequestDTO.getTelephone());
+        contact.setEmail(contactRequestDTO.getEmail());
 
         return contactRepository.save(contact);
     }

@@ -27,7 +27,7 @@ public class Contact {
     @Column(unique = true)
     private String telephone;
 
-    @Column(unique = true)
+    @Column
     private String email;
 
     @CreationTimestamp

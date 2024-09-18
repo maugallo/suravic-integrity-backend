@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestUserDTO {
+public class UserRequestDTO {
 
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
     @Size(max = 40, message = "El nombre de usuario no puede tener más de 40 caracteres")

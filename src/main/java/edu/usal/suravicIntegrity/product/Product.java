@@ -8,6 +8,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,6 +19,10 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -49,10 +57,6 @@ public class Product {
     @Column
     private Double price;
 
-    @Lob
-    @Column
-    private Byte[] image;
-
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -62,103 +66,4 @@ public class Product {
     @Column
     private Boolean isEnabled;
 
-    public Product() {}
-
-    public Product(Long id, Category category, Provider provider, User user, String plu, String title, Double price, Byte[] image, Timestamp createdAt, Timestamp updatedAt, Boolean isEnabled) {
-        this.id = id;
-        this.category = category;
-        this.provider = provider;
-        this.user = user;
-        this.plu = plu;
-        this.title = title;
-        this.price = price;
-        this.image = image;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.isEnabled = isEnabled;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getPlu() {
-        return plu;
-    }
-
-    public void setPlu(String plu) {
-        this.plu = plu;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
-    }
 }

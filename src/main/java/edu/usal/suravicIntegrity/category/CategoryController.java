@@ -1,9 +1,8 @@
-package edu.usal.suravicIntegrity.user;
+package edu.usal.suravicIntegrity.category;
 
 import edu.usal.suravicIntegrity.ErrorHandler;
 
 import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,59 +12,59 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/categories")
+public class CategoryController {
 
-    private final UserService userService;
+    private final CategoryService categoryService;
     private final ErrorHandler errorHandler;
 
-    public UserController(UserService userService, ErrorHandler errorHandler) {
-        this.userService = userService;
+    public CategoryController(CategoryService categoryService, ErrorHandler errorHandler) {
+        this.categoryService = categoryService;
         this.errorHandler = errorHandler;
     }
 
     // GET METHODS:
-    @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
+    @PreAuthorize("hasRole('DUENO')")
     @GetMapping()
-    public ResponseEntity<List<UserResponseDTO>> getUsers(@RequestParam(required = true) Boolean isEnabled){
-        return new ResponseEntity<>(userService.findUsers(isEnabled), HttpStatus.OK);
+    public ResponseEntity<List<CategoryResponseDTO>> getCategories(@RequestParam(required = true) Boolean isEnabled){
+        return new ResponseEntity<>(categoryService.findAll(isEnabled), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
+    @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id){
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    public ResponseEntity<CategoryResponseDTO> getCategoryById(@PathVariable Long id){
+        return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PostMapping()
-    public ResponseEntity<String> createUser(@Valid @RequestBody UserRequestDTO userRequestDTO, BindingResult bindingResult){
+    public ResponseEntity<String> createCategory(@Valid @RequestBody CategoryRequestDTO categoryRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(userService.addUser(userRequestDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(categoryService.addCategory(categoryRequestDTO), HttpStatus.CREATED);
     }
 
     // UPDATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @Valid @RequestBody UserRequestDTO userRequestDTO, BindingResult bindingResult){
+    public ResponseEntity<String> updateCategory(@PathVariable Long id, @Valid @RequestBody CategoryRequestDTO categoryRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             List<String> errorList = errorHandler.loadErrorMessages(bindingResult);
 
             return new ResponseEntity<>(ErrorHandler.getErrorMessages(errorList), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(userService.updateUser(id, userRequestDTO), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.updateCategory(id, categoryRequestDTO), HttpStatus.OK);
     }
 
     // DELETE & RECOVER METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> toggleIsEnabled(@PathVariable Long id){
-        return new ResponseEntity<>(userService.toggleIsEnabled(id), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.toggleIsEnabled(id), HttpStatus.OK);
     }
 
 }
