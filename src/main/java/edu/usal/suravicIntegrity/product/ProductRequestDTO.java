@@ -1,18 +1,10 @@
 package edu.usal.suravicIntegrity.product;
 
-import edu.usal.suravicIntegrity.category.Category;
 import edu.usal.suravicIntegrity.category.CategoryResponseDTO;
-import edu.usal.suravicIntegrity.provider.Provider;
 import edu.usal.suravicIntegrity.provider.ProviderResponseDTO;
-import edu.usal.suravicIntegrity.user.User;
 import edu.usal.suravicIntegrity.user.UserResponseDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import edu.usal.suravicIntegrity.validation.UniqueValidator;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,17 +12,19 @@ import lombok.Setter;
 @Setter
 public class ProductRequestDTO {
 
-    private CategoryResponseDTO category;
+    private Long categoryId;
 
-    private ProviderResponseDTO provider;
+    private Long providerId;
 
-    private UserResponseDTO user;
+    private Long userId;
 
     @Size(min = 2, max = 10)
+    @UniqueValidator(entityClass = Product.class, fieldName = "plu", message = "El plu ingresado ya existe")
     private String plu;
 
     @NotBlank
     @Size(max = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$", message = "El título no puede tener caracteres especiales")
     private String title;
 
     @NotBlank

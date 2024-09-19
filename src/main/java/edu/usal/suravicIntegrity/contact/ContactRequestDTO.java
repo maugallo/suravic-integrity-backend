@@ -19,6 +19,7 @@ public class ContactRequestDTO {
 
     @Size(max = 50)
     @Pattern(regexp = "(^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$)", message = "El email no cumple el formato necesario")
+    @UniqueValidator(entityClass = Contact.class, fieldName = "email", message = "El email ingresado ya existe")
     private String email;
 
 }

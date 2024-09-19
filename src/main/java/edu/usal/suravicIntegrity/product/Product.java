@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,12 +41,9 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Size(min = 2, max = 10)
-    @Column(unique = true)
+    @Column
     private String plu;
 
-    @NotBlank
-    @Size(max = 50)
     @Column
     private String title;
 

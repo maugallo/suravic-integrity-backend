@@ -50,7 +50,6 @@ public class SectorService {
         Sector sector = this.findSectorById(id);
 
         sector.setName(sectorRequestDTO.getName());
-
         sectorRepository.save(sector);
 
         return "Rubro actualizado correctamente";

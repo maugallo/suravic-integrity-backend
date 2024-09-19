@@ -33,7 +33,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDTO> getCategoryById(@PathVariable Long id){
-        return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.findCategoryResponseById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:

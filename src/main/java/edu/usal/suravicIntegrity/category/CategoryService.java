@@ -25,9 +25,13 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public CategoryResponseDTO findById(Long id) {
-        Category category = categoryRepository.findById(id)
+    public Category findCategoryById(Long id) {
+        return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar la categoría solicitada con id " + id));
+    }
+
+    public CategoryResponseDTO findCategoryResponseById(Long id) {
+        Category category = this.findCategoryById(id);
 
         return categoryMapper.toDTO(category);
     }
@@ -43,11 +47,9 @@ public class CategoryService {
 
     // PUT METHOD:
     public String updateCategory(Long id, CategoryRequestDTO categoryRequestDTO) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar la categoría solicitada con id " + id));
+        Category category = this.findCategoryById(id);
 
         category.setName(categoryRequestDTO.getName());
-
         categoryRepository.save(category);
 
         return "Categoría actualizada correctamente";
@@ -55,8 +57,7 @@ public class CategoryService {
 
     // DELETE/RECOVER METHOD:
     public String toggleIsEnabled(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar la categoría solicitada con id " + id));
+        Category category = this.findCategoryById(id);
 
         category.setIsEnabled(!category.getIsEnabled());
         categoryRepository.save(category);
