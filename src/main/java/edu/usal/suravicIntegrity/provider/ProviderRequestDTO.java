@@ -2,8 +2,6 @@ package edu.usal.suravicIntegrity.provider;
 
 import edu.usal.suravicIntegrity.contact.ContactRequestDTO;
 import edu.usal.suravicIntegrity.percentages.PercentagesRequestDTO;
-import edu.usal.suravicIntegrity.sector.Sector;
-import edu.usal.suravicIntegrity.sector.SectorResponseDTO;
 import edu.usal.suravicIntegrity.validation.EnumValidator;
 import edu.usal.suravicIntegrity.validation.UniqueValidator;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class ProviderRequestDTO {
 
-    private SectorResponseDTO sector;
+    private Long sectorId;
 
     private ContactRequestDTO contact;
 

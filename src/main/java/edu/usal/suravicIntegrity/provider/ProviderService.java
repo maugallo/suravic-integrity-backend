@@ -5,7 +5,8 @@ import edu.usal.suravicIntegrity.contact.ContactService;
 import edu.usal.suravicIntegrity.exceptions.ResourceNotFoundException;
 import edu.usal.suravicIntegrity.percentages.Percentages;
 import edu.usal.suravicIntegrity.percentages.PercentagesService;
-import edu.usal.suravicIntegrity.sector.SectorMapper;
+import edu.usal.suravicIntegrity.sector.Sector;
+import edu.usal.suravicIntegrity.sector.SectorService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,14 @@ public class ProviderService {
 
     private final ContactService contactService;
     private final PercentagesService percentagesService;
+    private final SectorService sectorService;
     private final ProviderRepository providerRepository;
     private final ProviderMapper providerMapper = ProviderMapper.INSTANCE;
 
-    public ProviderService(ContactService contactService, PercentagesService percentagesService, ProviderRepository providerRepository) {
+    public ProviderService(ContactService contactService, PercentagesService percentagesService, SectorService sectorService, ProviderRepository providerRepository) {
         this.contactService = contactService;
         this.percentagesService = percentagesService;
+        this.sectorService = sectorService;
         this.providerRepository = providerRepository;
     }
 
@@ -35,9 +38,13 @@ public class ProviderService {
                 .collect(Collectors.toList());
     }
 
-    public ProviderResponseDTO findProviderById(Long id) {
-        Provider provider = providerRepository.findById(id)
+    public Provider findProviderById(Long id) {
+        return providerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el proveedor solicitado con id " + id));
+    }
+
+    public ProviderResponseDTO findProviderResponseById(Long id) {
+        Provider provider = this.findProviderById(id);
 
         return providerMapper.toDTO((provider));
     }
@@ -45,11 +52,12 @@ public class ProviderService {
     // CREATE METHOD:
     @Transactional
     public String addProvider(ProviderRequestDTO providerRequestDTO) {
-        Provider provider = providerMapper.toEntityFromRequest(providerRequestDTO);
+        Provider provider = providerMapper.toEntity(providerRequestDTO);
+
         provider.setIsEnabled(true);
+        provider.setSector(sectorService.findSectorById(providerRequestDTO.getSectorId()));
         provider.setContact(contactService.addContact(providerRequestDTO.getContact()));
         provider.setPercentages(percentagesService.addPercentages(providerRequestDTO.getPercentages()));
-
         providerRepository.save(provider);
 
         return "Proveedor agregado correctamente";
@@ -58,15 +66,15 @@ public class ProviderService {
     // PUT METHOD:
     @Transactional
     public String updateProvider(Long id, ProviderRequestDTO providerRequestDTO) {
-        Provider provider = providerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el proveedor solicitado con id " + id));
+        Provider provider = this.findProviderById(id);
 
-        Contact updateContact = contactService.updateContact(provider.getContact().getId(), providerRequestDTO.getContact());
-        Percentages updatePercentages = percentagesService.updatePercentages(provider.getPercentages().getId(), providerRequestDTO.getPercentages());
+        Sector updatedSector = sectorService.findSectorById(providerRequestDTO.getSectorId());
+        Contact updatedContact = contactService.updateContact(provider.getContact().getId(), providerRequestDTO.getContact());
+        Percentages updatedPercentages = percentagesService.updatePercentages(provider.getPercentages().getId(), providerRequestDTO.getPercentages());
 
-        provider.setSector(SectorMapper.INSTANCE.toEntityFromResponse(providerRequestDTO.getSector()));
-        provider.setContact(updateContact);
-        provider.setPercentages(updatePercentages);
+        provider.setSector(updatedSector);
+        provider.setContact(updatedContact);
+        provider.setPercentages(updatedPercentages);
         provider.setVatCondition(providerRequestDTO.getVatCondition());
         provider.setCompanyName(providerRequestDTO.getCompanyName());
         provider.setFirstName(providerRequestDTO.getFirstName());
@@ -79,8 +87,7 @@ public class ProviderService {
 
     // DELETE/RECOVER METHOD:
     public String toggleIsEnabled(Long id) {
-        Provider provider = providerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el proveedor solicitado con id " + id));
+        Provider provider = this.findProviderById(id);
 
         provider.setIsEnabled(!provider.getIsEnabled());
         providerRepository.save(provider);

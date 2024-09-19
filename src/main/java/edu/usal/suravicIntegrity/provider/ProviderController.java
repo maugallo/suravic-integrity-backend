@@ -32,7 +32,7 @@ public class ProviderController {
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
     public ResponseEntity<ProviderResponseDTO> getProvider(@PathVariable Long id) {
-        return new ResponseEntity<>(providerService.findProviderById(id), HttpStatus.OK);
+        return new ResponseEntity<>(providerService.findProviderResponseById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:

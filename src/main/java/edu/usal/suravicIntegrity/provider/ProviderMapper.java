@@ -29,22 +29,8 @@ public interface ProviderMapper {
         return dto;
     }
 
-    default Provider toEntityFromRequest(ProviderRequestDTO dto) {
+    default Provider toEntity(ProviderRequestDTO dto) {
         Provider provider = new Provider();
-        provider.setSector(SectorMapper.INSTANCE.toEntityFromResponse(dto.getSector()));
-        provider.setVatCondition(dto.getVatCondition());
-        provider.setCompanyName(dto.getCompanyName());
-        provider.setFirstName(dto.getFirstName());
-        provider.setLastName(dto.getLastName());
-        provider.setCuit(dto.getCuit());
-
-        return provider;
-    }
-
-    default Provider toEntityFromResponse(ProviderResponseDTO dto) {
-        Provider provider = new Provider();
-        provider.setId(dto.getId());
-        provider.setSector(SectorMapper.INSTANCE.toEntityFromResponse(dto.getSector()));
         provider.setVatCondition(dto.getVatCondition());
         provider.setCompanyName(dto.getCompanyName());
         provider.setFirstName(dto.getFirstName());

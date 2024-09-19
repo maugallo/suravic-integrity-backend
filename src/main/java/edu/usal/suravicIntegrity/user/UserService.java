@@ -29,9 +29,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserResponseDTO findById(Long id) {
-        User user = userRepository.findById(id)
+    public User findUserById(Long id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
+    }
+
+    public UserResponseDTO findUserResponseById(Long id) {
+        User user = this.findUserById(id);
 
         return userMapper.toDTO(user);
     }
@@ -48,8 +52,7 @@ public class UserService {
 
     // PUT METHOD:
     public String updateUser(Long id, UserRequestDTO userRequestDTO) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
+        User user = this.findUserById(id);
 
         user.setUsername(userRequestDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
@@ -62,8 +65,7 @@ public class UserService {
 
     // DELETE/RECOVER METHOD:
     public String toggleIsEnabled(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
+        User user = this.findUserById(id);
 
         user.setIsEnabled(!user.getIsEnabled());
         userRepository.save(user);

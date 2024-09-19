@@ -34,7 +34,7 @@ public class UserController {
     @PreAuthorize("hasRole('DUENO') or hasRole('ENCARGADO')")
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id){
-        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findUserResponseById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:

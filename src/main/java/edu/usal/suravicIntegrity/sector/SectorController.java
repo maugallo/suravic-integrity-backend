@@ -32,7 +32,7 @@ public class SectorController {
     @PreAuthorize("hasRole('DUENO')")
     @GetMapping("/{id}")
     public ResponseEntity<SectorResponseDTO> getSectorById(@PathVariable Long id){
-        return new ResponseEntity<>(sectorService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(sectorService.findSectorResponseById(id), HttpStatus.OK);
     }
 
     // CREATE METHOD:

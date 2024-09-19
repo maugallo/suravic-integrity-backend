@@ -17,16 +17,8 @@ public interface SectorMapper {
         return dto;
     }
 
-    default Sector toEntityFromRequest(SectorRequestDTO dto) {
+    default Sector toEntity(SectorRequestDTO dto) {
         Sector sector = new Sector();
-        sector.setName(dto.getName());
-
-        return sector;
-    }
-
-    default Sector toEntityFromResponse(SectorResponseDTO dto) {
-        Sector sector = new Sector();
-        sector.setId(dto.getId());
         sector.setName(dto.getName());
 
         return sector;
