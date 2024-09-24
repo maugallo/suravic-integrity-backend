@@ -22,11 +22,13 @@ public class TokenService {
     private final JwtDecoder jwtDecoder;
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final UserService userService;
 
-    public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder, UserDetailsServiceImpl userDetailsService) {
+    public TokenService(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder, UserDetailsServiceImpl userDetailsService, UserService userService) {
         this.jwtEncoder = jwtEncoder;
         this.jwtDecoder = jwtDecoder;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     public String generateToken(Authentication authentication) {
@@ -35,12 +37,16 @@ public class TokenService {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
+        String username = authentication.getName();
+        Long userId = userService.findUserByUsername(username).getId();
+
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
                 .expiresAt(now.plus(15, ChronoUnit.MINUTES))
                 .subject(authentication.getName())
                 .claim("authorities", authorities)
+                .claim("userId", userId)
                 .build();
 
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

@@ -18,7 +18,7 @@ public class ProductRequestDTO {
 
     private Long userId;
 
-    @Size(min = 2, max = 10)
+    @Size(max = 10)
     @UniqueValidator(entityClass = Product.class, fieldName = "plu", message = "El plu ingresado ya existe")
     private String plu;
 
@@ -27,7 +27,7 @@ public class ProductRequestDTO {
     @Pattern(regexp = "^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$", message = "El título no puede tener caracteres especiales")
     private String title;
 
-    @NotBlank
+    @NotNull
     @Min(value = 1)
     @Max(value = 9999999)
     private Double price;

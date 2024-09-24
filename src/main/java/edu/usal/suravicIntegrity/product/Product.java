@@ -47,9 +47,6 @@ public class Product {
     @Column
     private String title;
 
-    @NotBlank
-    @Min(value = 1)
-    @Max(value = 9999999)
     @Column
     private Double price;
 

@@ -34,6 +34,11 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con id " + id));
     }
 
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el usuario solicitado con username " + username));
+    }
+
     public UserResponseDTO findUserResponseById(Long id) {
         User user = this.findUserById(id);
 
