@@ -6,8 +6,9 @@ import edu.usal.suravicIntegrity.contact.Contact;
 import edu.usal.suravicIntegrity.contact.ContactRepository;
 import edu.usal.suravicIntegrity.percentages.Percentages;
 import edu.usal.suravicIntegrity.percentages.PercentagesRepository;
-import edu.usal.suravicIntegrity.product.Product;
 import edu.usal.suravicIntegrity.product.ProductRepository;
+import edu.usal.suravicIntegrity.product.ProductRequestDTO;
+import edu.usal.suravicIntegrity.product.ProductService;
 import edu.usal.suravicIntegrity.provider.Provider;
 import edu.usal.suravicIntegrity.provider.ProviderRepository;
 import edu.usal.suravicIntegrity.provider.VatCondition;
@@ -38,10 +39,11 @@ public class DataInitializer implements CommandLineRunner {
     private final PercentagesRepository percentagesRepository;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final ProductService productService;
 
     public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder,
                            SectorRepository sectorRepository, ProviderRepository providerRepository,
-                           CategoryRepository categoryRepository, ProductRepository productRepository, ContactRepository contactRepository, PercentagesRepository percentagesRepository) {
+                           CategoryRepository categoryRepository, ProductRepository productRepository, ContactRepository contactRepository, PercentagesRepository percentagesRepository, ProductService productService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.sectorRepository = sectorRepository;
@@ -50,16 +52,14 @@ public class DataInitializer implements CommandLineRunner {
         this.productRepository = productRepository;
         this.contactRepository = contactRepository;
         this.percentagesRepository = percentagesRepository;
+        this.productService = productService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        // Inicializar el usuario admin
         User adminUser = initializeAdminUser();
-
-        // Inicializar datos dependientes del usuario admin
         initializeData(adminUser);
-
+        
         System.out.println("Data initialization completed!");
     }
 
@@ -91,10 +91,10 @@ public class DataInitializer implements CommandLineRunner {
             return categoryRepository.save(newCategory);
         });
 
-        // Verificar y crear proveedor mock
-        Provider provider = providerRepository.findByCompanyName("Proveedor Mock").orElseGet(() -> {
+        // Verificar y crear proveedor de carnes
+        Provider provider = providerRepository.findByCompanyName("Novillo Pampeano").orElseGet(() -> {
             Contact newContact = new Contact();
-            newContact.setEmail("");
+            newContact.setEmail("juanpampeano@gmail.com");
             newContact.setTelephone("12345678");
 
             Percentages newPercentages = new Percentages();
@@ -104,7 +104,7 @@ public class DataInitializer implements CommandLineRunner {
             Provider newProvider = new Provider();
             newProvider.setContact(contactRepository.save(newContact));
             newProvider.setPercentages(percentagesRepository.save(newPercentages));
-            newProvider.setCompanyName("Proveedor Mock");
+            newProvider.setCompanyName("Novillo Pampeano");
             newProvider.setFirstName("Juan");
             newProvider.setLastName("Pérez");
             newProvider.setCuit("20-12345678-9");
@@ -114,16 +114,37 @@ public class DataInitializer implements CommandLineRunner {
             return providerRepository.save(newProvider);
         });
 
-        // Verificar y crear producto mock
-        productRepository.findByTitle("Producto de Carne").orElseGet(() -> {
-            Product newProduct = new Product();
-            newProduct.setTitle("Producto de Carne");
-            newProduct.setPrice(1500.00);
-            newProduct.setIsEnabled(true);
-            newProduct.setCategory(category);
-            newProduct.setProvider(provider);
-            newProduct.setUser(adminUser);  // Asociar con el usuario admin
-            return productRepository.save(newProduct);
-        });
+        // Crear productos de carne:
+        if (productRepository.findByTitle("Asado").isEmpty()) {
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado americado", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife ancho", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife angosto", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bola de lomo", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada comun", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada especial", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Chicicuela", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Colita de cuadril", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadrada", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadril", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Entraña", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Espinazo", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda Puchero", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Grasa vacuna", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Lomo", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Matambre", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Nalga", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Osobuco", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Paleta", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Palomita", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Peceto", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Picaña", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Roast beef", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de asado", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de nalga", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tortuguita", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Vacío", 5400.0));
+        }
     }
 }

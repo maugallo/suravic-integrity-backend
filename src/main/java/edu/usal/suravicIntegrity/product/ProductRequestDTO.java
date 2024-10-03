@@ -5,11 +5,13 @@ import edu.usal.suravicIntegrity.provider.ProviderResponseDTO;
 import edu.usal.suravicIntegrity.user.UserResponseDTO;
 import edu.usal.suravicIntegrity.validation.UniqueValidator;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ProductRequestDTO {
 
     private Long categoryId;
