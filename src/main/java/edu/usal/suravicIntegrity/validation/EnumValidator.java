@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 public @interface EnumValidator {
 
     Class<? extends Enum<?>> enumClass();
-    String message() default "El valor ingresado debe ser: {enumValues}";
+    String message() default "El valor o los valores ingresados deben ser: {enumValues}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
