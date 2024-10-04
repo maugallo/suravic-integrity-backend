@@ -2,16 +2,9 @@ package edu.usal.suravicIntegrity.order;
 
 import edu.usal.suravicIntegrity.provider.ProviderResponseDTO;
 import edu.usal.suravicIntegrity.user.UserResponseDTO;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -27,7 +20,7 @@ public class OrderResponseDTO {
 
     private String status;
 
-    private Set<String> paymentMethods;
+    private Set<String> paymentMethod;
 
     private LocalDate deliveryDate;
 

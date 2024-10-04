@@ -69,7 +69,7 @@ public class OrderService {
         order.setProvider(updatedProvider);
         order.setUser(updatedUser);
         order.setStatus(orderRequestDTO.getStatus());
-        order.setPaymentMethods(orderRequestDTO.getPaymentMethods());
+        order.setPaymentMethod(orderRequestDTO.getPaymentMethod());
         order.setDeliveryDate(orderRequestDTO.getDeliveryDate());
         order.setTotal(orderRequestDTO.getTotal());
         order.setInvoice(orderRequestDTO.getInvoice());

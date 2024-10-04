@@ -22,7 +22,7 @@ public class OrderRequestDTO {
     private String status;
 
     @EnumValidator(enumClass = PaymentMethod.class)
-    private Set<String> paymentMethods;
+    private Set<String> paymentMethod;
 
     @NotNull
     private LocalDate deliveryDate;

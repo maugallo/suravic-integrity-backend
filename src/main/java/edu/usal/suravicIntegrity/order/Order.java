@@ -39,7 +39,7 @@ public class Order {
     private String status;
 
     @ElementCollection
-    private Set<String> paymentMethods;
+    private Set<String> paymentMethod;
 
     @Column
     private LocalDate deliveryDate;

@@ -18,7 +18,7 @@ public interface OrderMapper {
         dto.setUser(UserMapper.INSTANCE.toDTO(order.getUser()));
 
         dto.setStatus(order.getStatus());
-        dto.setPaymentMethods(order.getPaymentMethods());
+        dto.setPaymentMethod(order.getPaymentMethod());
         dto.setDeliveryDate(order.getDeliveryDate());
         dto.setTotal(order.getTotal());
         dto.setInvoice(order.getInvoice());
@@ -30,7 +30,7 @@ public interface OrderMapper {
     default Order toEntity(OrderRequestDTO dto) {
         Order order = new Order();
         order.setStatus(dto.getStatus());
-        order.setPaymentMethods(dto.getPaymentMethods());
+        order.setPaymentMethod(dto.getPaymentMethod());
         order.setDeliveryDate(dto.getDeliveryDate());
         order.setTotal(dto.getTotal());
         order.setInvoice(dto.getInvoice());
