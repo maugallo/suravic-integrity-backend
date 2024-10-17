@@ -49,6 +49,11 @@ public class ProductService {
         return productMapper.toDTO((product));
     }
 
+    public Product findProductByTitle(String title) {
+        return productRepository.findByTitle(title)
+                .orElseThrow(() -> new ResourceNotFoundException("No se pudo encontrar el producto solicitado con nombre " + title));
+    }
+
     // CREATE METHOD:
     @Transactional
     public String addProduct(ProductRequestDTO productRequestDTO) {
