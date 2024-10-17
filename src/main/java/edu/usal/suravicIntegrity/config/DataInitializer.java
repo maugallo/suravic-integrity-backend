@@ -116,35 +116,35 @@ public class DataInitializer implements CommandLineRunner {
 
         // Crear productos de carne:
         if (productRepository.findByTitle("Asado").isEmpty()) {
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado americado", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife ancho", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife angosto", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bola de lomo", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada comun", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada especial", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Chicicuela", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Colita de cuadril", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadrada", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadril", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Entraña", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Espinazo", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda Puchero", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Grasa vacuna", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Lomo", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Matambre", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Nalga", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Osobuco", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Paleta", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Palomita", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Peceto", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado", 5900.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Asado americado", 6980.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife ancho", 6390.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bife angosto", 6490.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Bola de lomo", 6200.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada comun", 5250.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Carne picada especial", 5500.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Chicicuela", 3060.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Colita de cuadril", 8130.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadrada", 6270.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Cuadril", 6470.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Entraña", 9440.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Espinazo", 2400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda parrillera", 4200.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Falda puchero", 3800.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Grasa vacuna", 50.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Lomo", 9270.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Matambre", 7400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Nalga", 7245.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Osobuco", 3500.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Paleta", 5600.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Palomita", 5600.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Peceto", 7850.0));
             productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Picaña", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Roast beef", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de asado", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de nalga", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tortuguita", 5400.0));
-            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Vacío", 5400.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Roast beef", 5490.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de asado", 6470.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tapa de nalga", 6470.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Tortuguita", 5610.0));
+            productService.addProduct(new ProductRequestDTO(category.getId(), provider.getId(), adminUser.getId(), "", "Vacío", 6950.0));
         }
     }
 }
