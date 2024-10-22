@@ -7,11 +7,13 @@ import edu.usal.suravicIntegrity.validation.UniqueValidator;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProductRequestDTO {
 
     private Long categoryId;

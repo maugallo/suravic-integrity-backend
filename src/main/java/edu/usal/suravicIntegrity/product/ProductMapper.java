@@ -1,6 +1,7 @@
 package edu.usal.suravicIntegrity.product;
 
 import edu.usal.suravicIntegrity.category.CategoryMapper;
+import edu.usal.suravicIntegrity.meatDetails.MeatDetails;
 import edu.usal.suravicIntegrity.provider.ProviderMapper;
 import edu.usal.suravicIntegrity.user.UserMapper;
 import org.mapstruct.Mapper;
