@@ -19,15 +19,15 @@ public class MeatDetailsController {
 
     // GET METHODS:
     @PreAuthorize("hasRole('DUENO')")
-    @GetMapping()
-    public ResponseEntity<List<ProductWithMeatDetailsDTO>> getProductsWithMeatDetails() {
-        return new ResponseEntity<>(meatDetailsService.findMeatDetailsDTO(), HttpStatus.OK);
+    @GetMapping("/{category}")
+    public ResponseEntity<List<MeatDetailsDTO>> getProductsWithMeatDetails(@PathVariable String category) {
+        return new ResponseEntity<>(meatDetailsService.findMeatDetailsDTO(category), HttpStatus.OK);
     }
 
     // UPDATE METHOD:
     @PreAuthorize("hasRole('DUENO')")
     @PutMapping()
-    public ResponseEntity<String> updateProductsWithMeatDetails(@RequestBody List<ProductWithMeatDetailsDTO> productsWithMeatDetailsDTO) {
+    public ResponseEntity<String> updateProductsWithMeatDetails(@RequestBody List<MeatDetailsDTO> productsWithMeatDetailsDTO) {
         return new ResponseEntity<>(meatDetailsService.updateProductsWithMeatDetails(productsWithMeatDetailsDTO), HttpStatus.OK);
     }
 

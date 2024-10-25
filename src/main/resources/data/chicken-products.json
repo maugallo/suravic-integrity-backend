@@ -1,0 +1,50 @@
+[
+  {
+    "id": null,
+    "plu": "",
+    "title": "Supremas",
+    "price": 4500.0,
+    "weight": 0.66,
+    "percentage": 26.72
+  },
+  {
+    "id": null,
+    "plu": "",
+    "title": "Patamuslo",
+    "price": 3000.0,
+    "weight": 0.89,
+    "percentage": 36.0
+  },
+  {
+    "id": null,
+    "plu": "",
+    "title": "Alitas",
+    "price": 1200.0,
+    "weight": 0.235,
+    "percentage": 9.51
+  },
+  {
+    "id": null,
+    "plu": "",
+    "title": "Menudos",
+    "price": 800.0,
+    "weight": 0.145,
+    "percentage": 5.87
+  },
+  {
+    "id": null,
+    "plu": "",
+    "title": "Carcaza de lomo",
+    "price": 600.0,
+    "weight": 0.195,
+    "percentage": 7.89
+  },
+  {
+    "id": null,
+    "plu": "",
+    "title": "Carcaza de pecho",
+    "price": 700.0,
+    "weight": 0.165,
+    "percentage": 6.68
+  }
+]

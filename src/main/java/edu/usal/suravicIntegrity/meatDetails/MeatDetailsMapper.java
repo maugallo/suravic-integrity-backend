@@ -9,11 +9,12 @@ public interface MeatDetailsMapper {
 
     MeatDetailsMapper INSTANCE = Mappers.getMapper(MeatDetailsMapper.class);
 
-    default ProductWithMeatDetailsDTO toDTO(MeatDetails meatDetails) {
-        ProductWithMeatDetailsDTO dto = new ProductWithMeatDetailsDTO();
+    default MeatDetailsDTO toDTO(MeatDetails meatDetails) {
+        MeatDetailsDTO dto = new MeatDetailsDTO();
         Product product = meatDetails.getProduct();
 
         dto.setId(product.getId());
+        dto.setPlu(product.getPlu());
         dto.setTitle(product.getTitle());
         dto.setPrice(product.getPrice());
         dto.setPercentage(meatDetails.getPercentage());
@@ -22,7 +23,7 @@ public interface MeatDetailsMapper {
         return dto;
     }
 
-    default MeatDetails toEntity(ProductWithMeatDetailsDTO dto) {
+    default MeatDetails toEntity(MeatDetailsDTO dto) {
         MeatDetails meatDetails = new MeatDetails();
 
         meatDetails.setId(dto.getId()); // Mantiene el mismo ID que su product.

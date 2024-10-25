@@ -5,9 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductWithMeatDetailsDTO {
+public class MeatDetailsDTO {
 
     private Long id;
+
+    private String plu;
 
     private String title;
 
